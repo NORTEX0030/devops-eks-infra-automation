@@ -24,7 +24,7 @@ crash.log
 *.bak
 *.backup
 
-# Local repo clone folder (avoid pushing entire repo inside repo)
+# Local repo clone folder (avoid pushing entire repo inside thr repo)
 devops-eks-infra-automation.git/
 
 .terraform/
