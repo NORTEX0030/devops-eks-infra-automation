@@ -8,109 +8,110 @@
   <img src="https://img.shields.io/badge/Terraform-v1.6+-blueviolet?style=flat&logo=terraform" />
   <img src="https://img.shields.io/badge/AWS-EKS-orange?style=flat&logo=amazonaws" />
   <img src="https://img.shields.io/badge/Jenkins-Automation-blue?style=flat&logo=jenkins" />
-  <img src="https://img.shields.io/github/stars/NORTEX0030/CICD-Terraform-EKS?style=social" />
 </p>
 
 ---
-
-## 📁 Repository Structure
-
-```bash
 CICD-Terraform-EKS/
-│
-├── EKS/              # Terraform code to provision EKS cluster
-└── jenkins-server/   # Terraform code to launch EC2 instance for Jenkins
-📌 Project Overview
-This project provisions a complete infrastructure on AWS using Terraform, where:
+├── EKS/ # Terraform configs to create EKS cluster
+├── jenkins-server/ # Terraform configs to create Jenkins EC2
+├── README.md # This file
+└── .gitignore # Ignoring sensitive/generated files
 
-A Jenkins EC2 instance is deployed and configured using user_data.
+## 📌 Features
 
-Jenkins automates CI/CD pipelines.
+---
 
-Jenkins triggers creation and deployment of an Amazon EKS cluster.
+## 📌 Features
 
-All resources are managed as Infrastructure-as-Code (IaC).
+- 🔧 **Infrastructure-as-Code** with Terraform
+- ☸️ **Amazon EKS Cluster** deployment
+- ⚙️ **EC2 instance with Jenkins** and pre-installed DevOps tools (Terraform, kubectl, AWS CLI)
+- 🔁 **CI/CD pipeline** automation from Jenkins to EKS
+- ☁️ **Remote backend** using S3 for Terraform state
 
-✅ Prerequisites
-Make sure you have:
+---
 
-✅ An AWS Account
+## 🧰 Prerequisites
 
-✅ AWS Root IAM Access Keys configured (~/.aws/credentials)
+- ✅ AWS Account with root access
+- ✅ IAM access key & secret
+- ✅ Installed: `Terraform`, `AWS CLI`, `kubectl`
 
-✅ Terraform CLI (>= 1.6)
+---
 
-✅ AWS CLI installed (>= v2)
+## 🔐 Setup AWS Access
 
-✅ A GitHub repo clone of this project
-
-🔐 Generating AWS Access Keys (Root)
-⚠️ Root access is powerful — use only for testing. Prefer IAM users in production.
-
-bash
-Copy
-Edit
-1. Go to AWS Console → IAM
-2. Click on your root user → "Security credentials"
-3. Create access key → Download the .csv file
-4. Configure credentials locally:
+1. Log in to AWS Console as root.
+2. Go to `IAM > Users > Security Credentials`.
+3. Generate an **Access Key**.
+4. Store the credentials securely:
+   ```bash
    aws configure
-💻 Deploy Jenkins EC2 Server
-Go into the Jenkins setup directory:
 
-bash
-Copy
-Edit
-cd jenkins-server
-Edit backend.tf with your S3 bucket name (for remote state).
 
-Initialize and apply Terraform:
+🚀 Deployment Steps
 
-bash
-Copy
-Edit
+1️⃣ Deploy Jenkins EC2 Server
+
+cd jenkins-server/
 terraform init
 terraform apply
-☁️ This will:
 
-Create a VPC, subnet, security groups
+Jenkins will be installed automatically via user_data
+It includes: Jenkins, Terraform, AWS CLI, kubectl
 
-Launch an EC2 with Jenkins + Terraform + AWS CLI + kubectl
+2️⃣ Deploy Amazon EKS Cluster
 
-☸️ Provision EKS Cluster (via Jenkins Pipeline)
-Go to Jenkins GUI on your EC2's public IP (port 8080)
+cd ../EKS/
+terraform init
+terraform apply
 
-Create a pipeline that triggers terraform apply in the EKS/ folder
+EKS cluster will be provisioned.
+Ensure Jenkins has proper IAM permissions to interact with EKS.
 
-Configure GitHub Webhooks to trigger pipeline on push
+🔁 CI/CD Automation Flow
 
-🎯 Expected Outcome
-✅ Fully automated CI/CD pipeline with Jenkins
-✅ On-demand EKS cluster provisioning
-✅ AWS resources deployed via Terraform
-✅ Secure and modular infrastructure code
+graph TD
+  Dev[Developer Push Code] --> GitHub
+  GitHub --> Jenkins[Jenkins Build Trigger]
+  Jenkins --> TerraformApply[Terraform Plan & Apply]
+  TerraformApply --> AWS[AWS EKS + Resources]
 
-📸 Screenshots
-Jenkins Dashboard	EKS Provisioned
-	
 
-🔐 Security Note
-Add .terraform/, .tfstate, and credentials to .gitignore:
+🎯 Goals Achieved✅ IaC-based environment setup
 
-gitignore
-Copy
-Edit
-.terraform/
-*.tfstate
-*.tfstate.*
-aws_credentials.csv
-📊 GitHub Stats
-<p align="center"> <img src="https://github-readme-stats.vercel.app/api?username=NORTEX0030&show_icons=true&theme=github_dark" /> </p>
-🤝 Connect with Me
-🧑‍💼 LinkedIn
+✅ Real-world Jenkins + EKS pipeline
 
-🌐 Portfolio
+✅ Remote state management with S3
 
-✉️ Email: yadavnitesh0030@gmail.com
+✅ Used Terraform modules for reusability
 
-<p align="center"><i>Made with ❤️ by Nitesh Yadav</i></p> ```
+
+⚠️ Cleanup (Avoid AWS Charges)
+
+# In jenkins-server and EKS folders
+terraform destroy
+Also delete the EC2 instance and S3 bucket manually if needed.
+
+👨‍💻 Author
+Nitesh Yadav
+🌐 GitHub | 💼 LinkedIn
+
+
+⭐️ If you find this useful, give the repo a star!
+
+---
+
+### ✅ Now Do This:
+1. Save this as your `README.md`.
+2. Push to your GitHub repo.
+3. Add this project to your resume/portfolio with a link.
+
+Let me know if you want:
+- A matching project thumbnail image
+- GitHub Actions CI/CD added
+- GitHub Pages project site
+
+Would you like me to add this `README.md` directly to your current repo folder too?
+ 
+ ```
