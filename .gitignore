@@ -1,0 +1,28 @@
+# Terraform working directory
+.terraform/
+
+# Terraform sensitive input files
+*.tfvars
+*.tfvars.json
+
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform lock file
+.terraform.lock.hcl
+
+# Crash log files
+crash.log
+
+# Editor/OS-related
+.DS_Store
+.idea/
+.vscode/
+
+# Backup files
+*.bak
+*.backup
+
