@@ -27,3 +27,7 @@ crash.log
 # Local repo clone folder (avoid pushing entire repo inside repo)
 devops-eks-infra-automation.git/
 
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
