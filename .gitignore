@@ -34,3 +34,5 @@ crash.log
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
+.terraform/
+jenkins-server/.terraform/
