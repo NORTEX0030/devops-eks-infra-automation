@@ -13,104 +13,124 @@
 
 ---
 
-## 📁 Repository Structure
+## 📁 Project Structure
 
 ```bash
-CICD-Terraform-EKS/
-│
-├── EKS/              # Terraform code to provision EKS cluster
-└── jenkins-server/   # Terraform code to launch EC2 instance for Jenkins
-📌 Project Overview
-This project provisions a complete infrastructure on AWS using Terraform, where:
+.
+├── EKS/                          # Complete EKS cluster provisioning
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── provider.tf
+│   ├── data.tf
+│   ├── backend.tf
+│   ├── versions.tf
+│   ├── kubernetes.tf
+│   ├── Jenkinsfile
+│   └── configuration-files/
+│       ├── deployment.yaml
+│       └── service.yaml
+├── jenkins-server/              # Jenkins EC2-based automation
+│   ├── main.tf
+│   ├── provider.tf
+│   ├── variables.tf
+│   ├── data.tf
+│   ├── backend.tf
+│   └── jenkins-install.sh
+├── README.md
+└── .gitignore
 
-A Jenkins EC2 instance is deployed and configured using user_data.
 
-Jenkins automates CI/CD pipelines.
 
-Jenkins triggers creation and deployment of an Amazon EKS cluster.
+---
 
-All resources are managed as Infrastructure-as-Code (IaC).
+## ✅ Objectives
 
-✅ Prerequisites
-Make sure you have:
+- Automate the provisioning of a **secure EKS cluster** on AWS
+- Launch an EC2 instance and bootstrap **Jenkins** with all required tools
+- Configure **CI/CD pipeline** using Jenkins to deploy applications to EKS
+- Use **Terraform modules** and **YAML manifests** for end-to-end infra and app setup
 
-✅ An AWS Account
+---
 
-✅ AWS Root IAM Access Keys configured (~/.aws/credentials)
+## 🧰 Tech Stack
 
-✅ Terraform CLI (>= 1.6)
+| Tool       | Purpose                          |
+|------------|----------------------------------|
+| Terraform  | Infrastructure provisioning      |
+| AWS        | Cloud infrastructure provider    |
+| EC2        | Host Jenkins server              |
+| EKS        | Kubernetes cluster               |
+| Jenkins    | CI/CD engine                     |
+| kubectl    | K8s CLI to manage deployments    |
+| GitHub     | Version control and repo hosting |
 
-✅ AWS CLI installed (>= v2)
+---
 
-✅ A GitHub repo clone of this project
+## ⚙️ Prerequisites
 
-🔐 Generating AWS Access Keys (Root)
-⚠️ Root access is powerful — use only for testing. Prefer IAM users in production.
+Before getting started, make sure you have:
 
-bash
-Copy
-Edit
-1. Go to AWS Console → IAM
-2. Click on your root user → "Security credentials"
-3. Create access key → Download the .csv file
-4. Configure credentials locally:
-   aws configure
-💻 Deploy Jenkins EC2 Server
-Go into the Jenkins setup directory:
+- An AWS Account (with sufficient permissions)
+- AWS CLI installed and configured
+- Terraform CLI installed
+- `kubectl` installed
+- Git and GitHub access
 
-bash
-Copy
-Edit
+### 🔐 Creating AWS Root Access Keys
+
+> _**Note:** Use IAM roles for production environments. Root credentials are for testing/learning only._
+
+1. Log in to AWS as root user.
+2. Go to **IAM → Users → Security Credentials** tab.
+3. Click on **Create access key**.
+4. Download the `.csv` file for CLI use.
+
+---
+
+## 🚀 Deployment Steps
+
+### 1. Provision Jenkins Server (EC2)
+
+This step provisions an EC2 instance that automatically installs Jenkins, Terraform, AWS CLI, and `kubectl`.
+
+```bash
 cd jenkins-server
-Edit backend.tf with your S3 bucket name (for remote state).
-
-Initialize and apply Terraform:
-
-bash
-Copy
-Edit
 terraform init
-terraform apply
-☁️ This will:
+terraform apply -auto-approve
 
-Create a VPC, subnet, security groups
 
-Launch an EC2 with Jenkins + Terraform + AWS CLI + kubectl
+📝 Jenkins will be installed using jenkins-install.sh (user-data) and exposed on port 8080.
 
-☸️ Provision EKS Cluster (via Jenkins Pipeline)
-Go to Jenkins GUI on your EC2's public IP (port 8080)
+2. Provision Amazon EKS Cluster
+Once Jenkins is running, deploy the EKS infrastructure from your local machine or automate it through Jenkins:
+cd EKS
+terraform init
+terraform apply -auto-approve
 
-Create a pipeline that triggers terraform apply in the EKS/ folder
+After successful provisioning:
+aws eks --region <your-region> update-kubeconfig --name my-eks-cluster
+kubectl get nodes
 
-Configure GitHub Webhooks to trigger pipeline on push
+📦 Kubernetes Application Deployment
+YAML manifests are available under:
+EKS/configuration-files/
+Apply them using:kubectl apply -f configuration-files/deployment.yaml
+kubectl apply -f configuration-files/service.yaml
 
-🎯 Expected Outcome
-✅ Fully automated CI/CD pipeline with Jenkins
-✅ On-demand EKS cluster provisioning
-✅ AWS resources deployed via Terraform
-✅ Secure and modular infrastructure code
+🧪 CI/CD Flow (Optional Jenkins Pipeline)
+Integrate GitHub and Jenkins with a Jenkinsfile in the EKS directory for automated deployments on push events.
+📈 Future Enhancements
+ Add GitHub Webhooks for Jenkins
 
-📸 Screenshots
-Jenkins Dashboard	EKS Provisioned
-	
+ ArgoCD / FluxCD GitOps support
 
-🔐 Security Note
-Add .terraform/, .tfstate, and credentials to .gitignore:
+ Monitoring via Prometheus + Grafana
 
-gitignore
-Copy
-Edit
-.terraform/
-*.tfstate
-*.tfstate.*
-aws_credentials.csv
-📊 GitHub Stats
-<p align="center"> <img src="https://github-readme-stats.vercel.app/api?username=NORTEX0030&show_icons=true&theme=github_dark" /> </p>
-🤝 Connect with Me
-🧑‍💼 LinkedIn
+ Horizontal Pod Autoscaling (HPA)
 
-🌐 Portfolio
+🙌 Author
+Created with 💻 and ☁️ by NORTEX0030
+Feel free to fork, star, and contribute!
 
-✉️ Email: yadavnitesh0030@gmail.com
-
-<p align="center"><i>Made with ❤️ by Nitesh Yadav</i></p> ```
+⚠️ This project is for educational and demo purposes. Secure IAM roles, VPCs, and state file management are advised for production environments.
