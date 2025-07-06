@@ -1,0 +1,33 @@
+# Terraform directories & state files
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+.terraform.lock.hcl
+
+# Terraform override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform crash logs
+crash.log
+
+# Editor & OS-specific files
+.DS_Store
+.idea/
+.vscode/
+
+# Backup files
+*.bak
+*.backup
+
+# Local repo clone folder (avoid pushing entire repo inside thr repo)
+devops-eks-infra-automation.git/
+
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl

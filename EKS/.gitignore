@@ -1,0 +1,22 @@
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.log
+
+# Credentials
+*.pem
+*.key
+.kube/
+.aws/
+
+# OS files
+.DS_Store
+
+# Python env
+__pycache__/
+.env
+.venv
+ansible-env/
+
