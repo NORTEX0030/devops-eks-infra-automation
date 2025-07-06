@@ -8,7 +8,8 @@
   <img src="https://img.shields.io/badge/Terraform-v1.6+-blueviolet?style=flat&logo=terraform" />
   <img src="https://img.shields.io/badge/AWS-EKS-orange?style=flat&logo=amazonaws" />
   <img src="https://img.shields.io/badge/Jenkins-Automation-blue?style=flat&logo=jenkins" />
-  <img src="https://img.shields.io/github/stars/NORTEX0030/CICD-Terraform-EKS?style=social" />
+  <img src="https://img.shields.io/github/stars/NORTEX0030/devops-eks-infra-automation?style=social" alt="GitHub stars"/>
+ />
 </p>
 
 ---
