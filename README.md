@@ -40,7 +40,6 @@
 │   └── jenkins-install.sh
 ├── README.md
 └── .gitignore
----
 '''
 
 
