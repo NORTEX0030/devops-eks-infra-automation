@@ -14,7 +14,7 @@
 
 ---
 
-## 📁 Project Structure
+###  📁 Project Structure
 
 ```bash
 .
@@ -45,7 +45,7 @@
 
 ---
 
-## ✅ Objectives
+### ✅ Objectives
 
 - Automate the provisioning of a **secure EKS cluster** on AWS
 - Launch an EC2 instance and bootstrap **Jenkins** with all required tools
@@ -68,7 +68,7 @@
 
 ---
 
-## ⚙️ Prerequisites
+### ⚙️ Prerequisites
 
 Before getting started, make sure you have:
 
@@ -99,39 +99,41 @@ This step provisions an EC2 instance that automatically installs Jenkins, Terraf
 cd jenkins-server
 terraform init
 terraform apply -auto-approve
+'''
 
-
-📝 Jenkins will be installed using jenkins-install.sh (user-data) and exposed on port 8080.
+###  📝 Jenkins will be installed using jenkins-install.sh (user-data) and exposed on port 8080.
 
 2. Provision Amazon EKS Cluster
 Once Jenkins is running, deploy the EKS infrastructure from your local machine or automate it through Jenkins:
+bash'''
 cd EKS
 terraform init
 terraform apply -auto-approve
+'''
 
 After successful provisioning:
+
+```bash
 aws eks --region <your-region> update-kubeconfig --name my-eks-cluster
 kubectl get nodes
+'''
 
-📦 Kubernetes Application Deployment
+### 📦 Kubernetes Application Deployment
+
+```bash
 YAML manifests are available under:
 EKS/configuration-files/
 Apply them using:kubectl apply -f configuration-files/deployment.yaml
 kubectl apply -f configuration-files/service.yaml
+'''
 
-🧪 CI/CD Flow (Optional Jenkins Pipeline)
+### 🧪 CI/CD Flow (Optional Jenkins Pipeline)
+
 Integrate GitHub and Jenkins with a Jenkinsfile in the EKS directory for automated deployments on push events.
-📈 Future Enhancements
- Add GitHub Webhooks for Jenkins
 
- ArgoCD / FluxCD GitOps support
-
- Monitoring via Prometheus + Grafana
-
- Horizontal Pod Autoscaling (HPA)
 
 🙌 Author
 Created with 💻 and ☁️ by NORTEX0030
 Feel free to fork, star, and contribute!
 
-⚠️ This project is for educational and demo purposes. Secure IAM roles, VPCs, and state file management are advised for production environments.
+
